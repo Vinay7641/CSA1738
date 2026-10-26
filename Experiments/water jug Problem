@@ -1,0 +1,21 @@
+from collections import deque
+a, b, target = 4, 3, 2
+q = deque([(0, 0, [])])
+visited = set()
+while q:
+    x, y, path = q.popleft()
+    if (x, y) in visited:
+        continue
+    visited.add((x, y))
+    path = path + [(x, y)]
+    if x == target or y == target:
+        print(path)
+        break
+    q.extend([
+        (a, y, path),
+        (x, b, path),
+        (0, y, path),
+        (x, 0, path),
+        (max(0, x - (b-y)), min(b, x+y), path),
+        (min(a, x+y), max(0, y-(a-x)), path)
+    ])
